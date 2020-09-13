@@ -53,5 +53,25 @@ bits/typesizes.h
 ```
 原来在bits/types.h中再使用一次typedef是出于跨平台的考虑，比如说一套Linux的C系统库，我需要编译32位版本的和64位版本的，通过将平台的差异放在`bits/typesizes.h`中，这样就能保证`bits/types.h`是可以一直保持不变的，这样我们可以一次编译就编译出32位版本和64位版本，而不需要维护32位平台和64位平台各自的`bits/types.h`。其实这也是Don't Reapet Yourself的一个体现，在`bits/types.h`中维护不同平台中相同的部分，把真正差异的部分放在`bits/typesizes.h`中。
 
+# 2.3
+这个问题的难点主要在于不知道中文版的翻译到底想让你干什么，其实这个问题需要结合正文的部分来理解，是这样的，有些程序经常会获取“单个进程同时打开文件的最大值”，然后他们会这样来用：
+```
+for (int i = 0; i < open_max; i++) {
+    close(i);
+}
+```
+这样就可以关闭掉所有已打开文件了。但是有些系统它的实现把`sysconf(_SC_OPEN_MAX)`的返回值实现为LONG_MAX，这就导致我需要调用close()很多次，其实打开的文件并不会有LONG_MAX这么多个，所以就导致了很多无用的循环，那么如何能够减少这些不必要的循环的次数呢？
+这个问题其实作者已经给出了答案，就是`getrlimit()`，这个调用是一个拓展调用，意思就是"get resource limits"，它的api是这样的：
+```
+int getrlimit(int resource, struct rlimit* rlim);
+
+struct rlimit {
+    rlim_t rlim_cur;  /* Soft limit */
+    rlim_t rlim_max;  /* Hard limit (celing for rlim_cur)*/
+}
+```
+所以我们只需要在`sysconf(_SC_OPEN_MAX)`返回为LONG_MAX的时候使用`get_rlimit()`的值就可以了，代码见[2_3](./2_3.c)
+
+
 
 
