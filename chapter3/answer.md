@@ -51,3 +51,63 @@ fd3 = open(path, oflags);
 F_SETFD这个flag的作用是影响fd, 所以只会影响进程中的fd->文件表项这个map.
 
 F_SETFL这个flag的作用是改变文件的状态, 而文件的状态是保存在文件表项中的, 所以F_SETFL会改变文件表项.
+
+# 3.4
+首先我们需要看一下这个几行代码有什么用：
+```
+dup2(fd, 0);
+dup2(fd, 1);
+dup2(fd, 2);
+if (fd > 2) {
+    close(fd);
+}
+```
+这几行的功能其实就是拷贝一个已经打开的fd，让stdin，stdout，stderr都指向这个文件，其实这就是一个重定向标准输入，标准输出和标准错误的方法。通过这种方式，本来printf()是输出到屏幕上的，我们可以重定向到文件中，实例见[3.4](./3_4.c)
+
+为什么我们最后需要`close(fd)`呢，关闭了之后就只有stdin，stdout，stderr这3个fd指向这个文件了，排除掉原始的fd的干扰。
+
+ps:在做这个实验的时候，我发现了一个很有意思的现象，我是这样打印的:
+```
+printf("Hello World\n");
+printf("What are you doing\n");
+perror("error\n");
+perror("error2\n");
+```
+但是得到的结果却是这样的：
+```
+error
+: Undefined error: 0
+error2
+: Undefined error: 0
+Hello World
+What are you doing
+```
+`perror()`的结果反而最先输出在了文件中，但是我先调用的是`printf()`，一开始我还以为是perror和printf之间有什么优先级的关系，但是仔细想了一下，现在他们都指向了同一个文件，应该不存在优先级的问题。后面查了一下才清楚，原来是`perror`中是不带缓冲的，所以会马上写入到文件，而`printf`中是带上了缓冲的，所以直到main函数结束才写入到文件。后面我在printf后面加上了一个`fflush(stdout)`，就得到了下面这样的结果：
+```
+Hello World
+What are you doing
+error
+: Undefined error: 0
+error2
+: Undefined error: 0
+```
+
+# 3.5
+我们先来分析一下shell为什么要用`2>&1`来表示把fd 2重定向到fd = 1的同一文件，为什么要在1前面加上一个`&`符号，其实原因就是因为，如果不加这个符号，单纯一个1表示的是一个文件，文件名是“1”。所以必须要一个特殊的符号，识别这不是一个文件名，而是一个fd对应的文件。
+
+然后看一下这个题目：
+```
+./a.out > outfile 2 > &1
+```
+这一句的意思就是a.out的stdout重定向到outfile里面，a.out的stderr重定向到stdout，此时stdout已经指向了文件，结果就是a.out的stdout和stderr都指向了文件outfile.
+
+```
+./a.out 2>&1 > outfile
+```
+这一句就是先把stderr重定向到stdout，一般是终端，然后把stdout重定向到文件。结果就是stdout指向了outfile，而stderr指向了终端。
+
+# 3.6 
+代码见[3.6](./3_6.c)，实验之后发现:
+
+1. 可以使用`lseek()`在任意位置读。
+2. 但是对于写来说，每次写之前都会把文件指针移到文件的末尾，所以文件只会追加到末尾.

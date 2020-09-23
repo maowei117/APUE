@@ -8,3 +8,5 @@ add_executable(2_3 ${CHAPTER2_SRC}/2_3.c)
 # chapter3
 set(CHAPTER3_SRC "../chapter3/")
 add_executable(3_2 ${CHAPTER3_SRC}/3_2.c) 
+add_executable(3_4 ${CHAPTER3_SRC}/3_4.c) 
+add_executable(3_6 ${CHAPTER3_SRC}/3_6.c) 
