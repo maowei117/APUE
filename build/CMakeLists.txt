@@ -14,3 +14,5 @@ add_executable(3_6 ${CHAPTER3_SRC}/3_6.c)
 # chapter4
 set(CHAPTER4_SRC "../chapter4/")
 add_executable(4_1 ${CHAPTER4_SRC}/4_1.c) 
+add_executable(4_6 ${CHAPTER4_SRC}/4_6.c) 
+add_executable(make_hole_file ${CHAPTER4_SRC}/make_hole_file.c) 
