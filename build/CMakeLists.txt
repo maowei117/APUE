@@ -21,3 +21,7 @@ add_executable(4_16 ${CHAPTER4_SRC}/4_16.c)
 add_executable(4_17 ${CHAPTER4_SRC}/4_17.c) 
 add_executable(make_hole_file ${CHAPTER4_SRC}/make_hole_file.c) 
 add_executable(my_unlink ${CHAPTER4_SRC}/unlink.c) 
+
+# chapter5
+set(CHAPTER5_SRC "../chapter5/")
+add_executable(5_2 ${CHAPTER5_SRC}/5_2.c) 
