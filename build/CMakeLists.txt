@@ -25,3 +25,4 @@ add_executable(my_unlink ${CHAPTER4_SRC}/unlink.c)
 # chapter5
 set(CHAPTER5_SRC "../chapter5/")
 add_executable(5_2 ${CHAPTER5_SRC}/5_2.c) 
+add_executable(5_3 ${CHAPTER5_SRC}/5_3.c) 
