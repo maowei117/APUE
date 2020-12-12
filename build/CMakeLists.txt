@@ -26,3 +26,10 @@ add_executable(my_unlink ${CHAPTER4_SRC}/unlink.c)
 set(CHAPTER5_SRC "../chapter5/")
 add_executable(5_2 ${CHAPTER5_SRC}/5_2.c) 
 add_executable(5_3 ${CHAPTER5_SRC}/5_3.c) 
+
+# chapter6
+set(CHAPTER6_SRC "../chapter6/")
+add_executable(6_2 ${CHAPTER6_SRC}/6_2.c) 
+add_executable(6_3 ${CHAPTER6_SRC}/6_3.c) 
+add_executable(6_4 ${CHAPTER6_SRC}/6_4.c) 
+add_executable(6_5 ${CHAPTER6_SRC}/6_5.c) 

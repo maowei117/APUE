@@ -12,3 +12,5 @@
 + [第三章](./chapter3/answer.md)
 + [第四章](./chapter4/answer.md)
 + [第五章](./chapter5/answer.md)
++ [第六章](./chapter6/answer.md)
++ [第七章](./chapter7/answer.md)
