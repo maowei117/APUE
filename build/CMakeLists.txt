@@ -39,3 +39,7 @@ set(CHAPTER7_SRC "../chapter7/")
 add_executable(7_1 ${CHAPTER7_SRC}/7_1.c) 
 add_executable(7_10 ${CHAPTER7_SRC}/7_10.c) 
 add_executable(print_test ${CHAPTER7_SRC}/print_test.c) 
+
+# chapter8
+set(CHAPTER8_SRC "../chapter8/")
+add_executable(8_1 ${CHAPTER8_SRC}/8_1.c) 
