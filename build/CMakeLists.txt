@@ -43,3 +43,5 @@ add_executable(print_test ${CHAPTER7_SRC}/print_test.c)
 # chapter8
 set(CHAPTER8_SRC "../chapter8/")
 add_executable(8_1 ${CHAPTER8_SRC}/8_1.c) 
+add_executable(8_2 ${CHAPTER8_SRC}/8_2.c) 
+add_executable(8_3 ${CHAPTER8_SRC}/8_3.c) 
