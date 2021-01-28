@@ -49,3 +49,7 @@ add_executable(8_6 ${CHAPTER8_SRC}/8_6.c)
 add_executable(8_7 ${CHAPTER8_SRC}/8_7.c) 
 add_executable(print_args ${CHAPTER8_SRC}/print_args.c) 
 add_executable(test_exec ${CHAPTER8_SRC}/test_exec.c) 
+
+# chapter9
+set(CHAPTER9_SRC "../chapter9/")
+add_executable(gid_test ${CHAPTER9_SRC}/gid_test.c) 
