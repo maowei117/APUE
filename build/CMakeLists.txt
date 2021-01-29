@@ -53,3 +53,4 @@ add_executable(test_exec ${CHAPTER8_SRC}/test_exec.c)
 # chapter9
 set(CHAPTER9_SRC "../chapter9/")
 add_executable(gid_test ${CHAPTER9_SRC}/gid_test.c) 
+add_executable(9_2 ${CHAPTER9_SRC}/9_2.c) 
