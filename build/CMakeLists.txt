@@ -54,3 +54,10 @@ add_executable(test_exec ${CHAPTER8_SRC}/test_exec.c)
 set(CHAPTER9_SRC "../chapter9/")
 add_executable(gid_test ${CHAPTER9_SRC}/gid_test.c) 
 add_executable(9_2 ${CHAPTER9_SRC}/9_2.c) 
+
+# chapter10
+set(CHAPTER10_SRC "../chapter10/")
+add_executable(timer_test ${CHAPTER10_SRC}/timer_test.c) 
+add_executable(10_1 ${CHAPTER10_SRC}/10_1.c) 
+add_executable(10_2 ${CHAPTER10_SRC}/10_2.c) 
+add_executable(10_3 ${CHAPTER10_SRC}/10_3.c) 

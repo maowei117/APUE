@@ -6,4 +6,4 @@ if [[ $1 == "clean" ]]; then
 fi 
 
 cmake .;
-make $*;
+make -j 3;
