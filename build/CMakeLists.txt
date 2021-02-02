@@ -62,6 +62,5 @@ add_executable(10_2 ${CHAPTER10_SRC}/10_2.c)
 add_executable(10_3 ${CHAPTER10_SRC}/10_3.c) 
 add_executable(timer_test ${CHAPTER10_SRC}/timer_test.c) 
 target_link_libraries(timer_test rt)
+add_executable(timer_test2 ${CHAPTER10_SRC}/timer_test2.c) 
 
-
-# Libraries

@@ -51,7 +51,7 @@ alarm(0);
 由于进程的调度, 当系统负载比较高时, 可能的执行序列是: alarm(10) -> 切换到其他进程 -> 10s定时到, 调用sig_handler() -> read(). 在这种调用序列下, 由于alarm信号的处理先于read(), 所以这种超时机制就失效了. 发生这种情况的本质就是由于alarm信号的丢失, 导致无法影响到read()的行为了, 通过set_jmp + long_jmp的方式, 保证只要alarm触发, 一定会jump到错误处理的代码段, 信号就不会丢失了. 
 
 2. 第二个问题就是这个题目本身了, 如果我们写代码的时候没有注意到竞争条件, 比如说像题目这样:
-```
+```C
 alarm(60);
 if (setjmp(env_alrm) != 0) {
     // Handle timeout.
@@ -75,8 +75,9 @@ int timer_settime(timer_t timerid, int flags, const struct itimerspec *new_value
 int timer_gettime(timer_t timerid, struct itimerspec *curr_value);
 ```
 我们首先写个例子看一下Linux系统已有的软件定时器是怎么工作的, 然后设计我们自己的API来实现一个软件定时器. 
-
 系统自带软件定时器的使用示例见[这里](./timer_test.c)
+
+了解到了系统已有的软件定时器的用法后, 我们来思考一下软件定时器是如何实现的. 首先Linux为进程提供的定时机制是只支持一个定时器的, 例如`alarm()`, `setitimer()`等, 每次我们调用了新的定时器, 
 
 
 
